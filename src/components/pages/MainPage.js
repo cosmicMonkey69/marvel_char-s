@@ -6,7 +6,7 @@ import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 import { useState } from "react";
 
-export const MainPage = (props) => {
+const MainPage = (props) => {
 
     const [selectedChar, setChar] = useState(null)
 
@@ -31,3 +31,5 @@ export const MainPage = (props) => {
         </>
     )
 }
+
+export default MainPage
