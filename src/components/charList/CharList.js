@@ -15,7 +15,6 @@ const CharList = (props) => {
 
     useEffect(() => {
         onRequest(offset, true);
-        console.log('effect')
     }, [])
 
     const onRequest = (offset, initial) => {
@@ -34,7 +33,6 @@ const CharList = (props) => {
         setNewItemLoading(newItemLoading => false);
         setOffset(offset => offset + 9);
         setCharEnded(charEnded => ended);
-        console.log(offset)
     }
 
     const itemRefs = useRef([]);
