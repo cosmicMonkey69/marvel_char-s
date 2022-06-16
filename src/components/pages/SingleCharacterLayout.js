@@ -4,16 +4,15 @@ import { useParams } from 'react-router-dom';
 import {Helmet} from "react-helmet";
 
 import useMarvelService from '../../services/MarvelService';
-import Spinner from '../spinner/Spinner';
-import ErrorMessage from '../errorMessage/ErrorMessage';
 import AppBanner from "../appBanner/AppBanner";
+import setContent from '../../utils/setContent';
 
 
 const SingleCharacterLayout = () => {
 
     const {id} = useParams();
     const [data, setData] = useState(null);
-    const {loading, error, getCharacter, clearError} = useMarvelService();
+    const {process, setProcess, getCharacter, clearError} = useMarvelService();
 
     useEffect(() => {
         updateData()
@@ -21,23 +20,19 @@ const SingleCharacterLayout = () => {
 
     const updateData = () => {
         clearError()
-        getCharacter(id).then(onDataLoaded)
+        getCharacter(id)
+            .then(onDataLoaded)
+            .then(() => setProcess('confirmed'))
     }
 
     const onDataLoaded = (data) => {
-        setData(data);
+        setData(data)
     }
-
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !data) ? <View data={data}/> : null;
 
     return (
         <>
             <AppBanner/>
-            {errorMessage}
-            {spinner}
-            {content}
+            {setContent(process, View, data)}
         </>
     )
 }
